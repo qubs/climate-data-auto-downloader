@@ -54,9 +54,7 @@ def main():
             # Remove any messages that are just spaces or blank lines.
             messages_iterable = filter(None, map(str.strip, message_file.read().strip().split("\n")))
 
-            for m in messages_iterable:
-                cleaned_message = m
-
+            for cleaned_message in messages_iterable:
                 message_headers = cleaned_message[:37]
                 message_data = cleaned_message[37:]
 
@@ -119,7 +117,10 @@ def main():
                             duplicate_exists = True
 
                     except requests.exceptions.Timeout:
-                        print("{}: Time-out while checking for duplicate messages.".format(datetime.datetime.now().isoformat()))
+                        print("{}: Time-out while checking for duplicate messages of: {}".format(
+                            datetime.datetime.now().isoformat(),
+                            cleaned_message
+                        ))
 
                     except ValueError:
                         print("{}: An invalid JSON response was recieved.".format(datetime.datetime.now().isoformat()))
@@ -127,7 +128,10 @@ def main():
                     except requests.exceptions.RequestException as e:
                         # Catch any generic request errors.
 
-                        print("{}: Error while checking for duplicate messages.".format(datetime.datetime.now().isoformat()))
+                        print("{}: Error while checking for duplicate messages of: {}".format(
+                            datetime.datetime.now().isoformat(),
+                            cleaned_message
+                        ))
                         print(e)
 
                     # If a duplicate doesn't exist, post the message to the API.
@@ -161,7 +165,9 @@ def main():
                             except requests.exceptions.RequestException as e:
                                 # Catch any generic request errors.
 
-                                print("{}: Automatic download of data failed.".format(datetime.datetime.now().isoformat()))
+                                print("{}: Automatic download of data failed.".format(
+                                    datetime.datetime.now().isoformat()
+                                ))
                                 print(e)
 
                                 sys.exit(1)
