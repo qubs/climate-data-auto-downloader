@@ -41,12 +41,15 @@ def main():
             if "centuryPrefix" in config["timeConfiguration"]:
                 CENTURY_PREFIX = config["timeConfiguration"]["centuryPrefix"]
 
-        os.system("getDcpMessages -u {} -P {} -h {} -p {} -f ./st.sc -x > {}".format(
+        # Run the LRGS command-line client software to fetch messages using search terms outlined in the .sc file.
+
+        os.system("getDcpMessages -u {} -P {} -h {} -p {} -f {} -x > {}".format(
             config["lrgsConnection"]["username"],
             config["lrgsConnection"]["password"],
             config["lrgsConnection"]["host"],
             config["lrgsConnection"]["port"],
 
+            SEARCH_FILE_PATH,
             MESSAGE_FILE_PATH
         ))
 
@@ -54,7 +57,10 @@ def main():
             # Remove any messages that are just spaces or blank lines.
             messages_iterable = filter(None, map(str.strip, message_file.read().strip().split("\n")))
 
+            # Loop through remaining messages and process each one.
+
             for cleaned_message in messages_iterable:
+                # Split message into the headers and the actual data.
                 message_headers = cleaned_message[:37]
                 message_data = cleaned_message[37:]
 
@@ -67,6 +73,7 @@ def main():
 
                 # We only want to process data from the data channel (GOES 19).
                 if goes_channel == GOES_DATA_CHANNEL:
+                    # Create a dictionary representing the data payload for the POST request to the API.
                     message = {
                         "goes_id": goes_id,
                         "arrival_time": arrival_time_object.isoformat(),
@@ -90,7 +97,9 @@ def main():
 
                     pp.pprint(message)
 
-                    # TODO: Process more (into readings, sensors, etc.)
+                    # TODO: Fetch station data from API
+                    # TODO: Fetch sensor data from API
+                    # TODO: Sort values into sensors
                     # TODO: Check for duplicate messages
 
                     # Check for repeat messages.
@@ -98,6 +107,9 @@ def main():
                     duplicate_exists = False
 
                     try:
+                        # Request for messages from the same GOES ID with an arrival time plus or minus one second from
+                        # the current message's arrival time...
+
                         r = requests.get(
                             "{}/messages/".format(config["apiConnection"]["url"]),
                             params={
@@ -109,6 +121,9 @@ def main():
 
                         result = r.json()
 
+                        # ... if one appears, it should be the same and thus the message should not be inserted again.
+                        # A flag is set to prevent insertion.
+
                         if len(result) > 0:
                             print("{}: The following message already has been saved: {}.".format(
                                 datetime.datetime.now().isoformat(),
@@ -117,12 +132,14 @@ def main():
                             duplicate_exists = True
 
                     except requests.exceptions.Timeout:
+                        # A Timeout error occurred; this should be logged.
                         print("{}: Time-out while checking for duplicate messages of: {}".format(
                             datetime.datetime.now().isoformat(),
                             cleaned_message
                         ))
 
                     except ValueError:
+                        # Decoding the JSON response failed; this should be logged.
                         print("{}: An invalid JSON response was recieved.".format(datetime.datetime.now().isoformat()))
 
                     except requests.exceptions.RequestException as e:
@@ -134,8 +151,7 @@ def main():
                         ))
                         print(e)
 
-                    # If a duplicate doesn't exist, post the message to the API.
-
+                    # If a duplicate doesn't exist (i.e. the flag has not been set), post the message to the API.
                     if not duplicate_exists:
                         times_to_repeat = 1
                         cancel_next_repeat = False
@@ -145,7 +161,6 @@ def main():
 
                             try:
                                 # Add message to database.
-
                                 r = requests.post(
                                     "{}/messages/".format(config["apiConnection"]["url"]),
                                     data=message,
@@ -172,6 +187,7 @@ def main():
 
                                 sys.exit(1)
                 else:
+                    # A message was retrieved that was not on the GOES data channel; log it and move on.
                     print("{}: Downloaded the following non-data message: {}".format(
                         datetime.datetime.now().isoformat(),
                         cleaned_message
