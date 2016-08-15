@@ -1,0 +1,58 @@
+{
+	"apiConnection": {
+		"url": "http://localhost:8000",
+		"username": "",
+		"password": ""
+	},
+	"lrgsConnection": {
+		"host": "cdadata.wcda.noaa.gov",
+		"port": 16003,
+		"username": "",
+		"password": ""
+	},
+	"goesStations": {
+		"C7A01592": {
+			"name": "Warner_Lake",
+			"numReadings": 4,
+			"sensors": [
+				{
+					"name": "W Dir",
+					"decimals": 2
+				},
+				{
+					"name": "W Spd",
+					"decimals": 2
+				},
+				{
+					"name": "Soil T1",
+					"decimals": 2
+				},
+				{
+					"name": "Soil T2",
+					"decimals": 2
+				},
+				{
+					"name": "Air Temp",
+					"decimals": 2
+				},
+				{
+					"name": "R.H.",
+					"decimals": 2
+				},
+				{
+					"name": "Rain AC",
+					"decimals": 2
+				},
+				{
+					"name": "Water T1",
+					"decimals": 2
+				},
+				{
+					"name": "Water T2",
+					"decimals": 2
+				}
+			],
+			"battery": true
+		}
+	}
+}
