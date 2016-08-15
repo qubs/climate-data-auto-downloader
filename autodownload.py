@@ -22,16 +22,24 @@ CONFIG_FILE_PATH = "./config.json"
 SEARCH_FILE_PATH = "./st.sc"
 MESSAGE_FILE_PATH = "./latest-messages.txt"
 
-GOES_DATA_CHANNEL = 19
-CENTURY_PREFIX = "20" # Hopefully this script won't be used in the 22nd century but just in case...
+GOES_DATA_CHANNEL = 19 # Default
+CENTURY_PREFIX = "20"  # Default, hopefully this script won't be used in the 22nd century but just in case...
 
-pp = pprint.PrettyPrinter(indent=4, compact=True) # For nice log file output and debugging.
+pp = pprint.PrettyPrinter(indent=2, compact=True) # For nice log file output and debugging.
 
 def main():
     with open(CONFIG_FILE_PATH, "rU") as configFile:
         config = json.loads(configFile.read())
 
-        # TODO: Edit search terms configuration file for each station.
+        # If configuration file specifies optional values, replace the default with them.
+
+        if "goesConfiguration" in config:
+            if "dataChannel" in config["goesConfiguration"]:
+                GOES_DATA_CHANNEL = config["goesConfiguration"]["dataChannel"]
+
+        if "timeConfiguration" in config:
+            if "centuryPrefix" in config["timeConfiguration"]:
+                CENTURY_PREFIX = config["timeConfiguration"]["centuryPrefix"]
 
         os.system("getDcpMessages -u {} -P {} -h {} -p {} -f ./st.sc -x > {}".format(
             config["lrgsConnection"]["username"],

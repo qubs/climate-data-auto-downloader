@@ -10,6 +10,12 @@
 		"username": "",
 		"password": ""
 	},
+	"goesConfiguration": {
+		"dataChannel": 19
+	},
+	"timeConfiguration": {
+		"centuryPrefix": "20"
+	},
 	"goesStations": {
 		"C7A0337E": {
 			"name": "Elbow_Lake",
