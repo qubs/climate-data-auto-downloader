@@ -1,124 +1,124 @@
 {
-	"apiConnection": {
-		"url": "http://localhost:8000",
-		"username": "",
-		"password": ""
-	},
-	"lrgsConnection": {
-		"host": "cdadata.wcda.noaa.gov",
-		"port": 16003,
-		"username": "",
-		"password": ""
-	},
-	"goesConfiguration": {
-		"dataChannel": 19
-	},
-	"timeConfiguration": {
-		"centuryPrefix": "20"
-	},
-	"goesStations": {
-		"C7A0337E": {
-			"name": "Elbow_Lake",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "Temp" },
-				{ "name": "RH" },
-				{ "name": "Baro" },
-				{ "name": "WSpd" },
-				{ "name": "Gust" },
-				{ "name": "WDir" },
-				{ "name": "WTemp1" },
-				{ "name": "WTemp2" },
-				{ "name": "Rad" }
-			],
-			"battery": true
-		},
-		"C7A02008": {
-			"name": "Hill_Island",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "W Dir" },
-				{ "name": "W Spd" },
-				{ "name": "Soil T1" },
-				{ "name": "Soil T2" },
-				{ "name": "Air Temp" },
-				{ "name": "R.H." },
-				{ "name": "Rain AC" },
-				{ "name": "Water T1" },
-				{ "name": "Water T2" }
-			],
-			"battery": true
-		},
-		"C7A006E4": {
-			"name": "Leroi_Swamp",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "W Dir" },
-				{ "name": "W Spd" },
-				{ "name": "Soil T1" },
-				{ "name": "Soil T2" },
-				{ "name": "Air Temp" },
-				{ "name": "R.H." },
-				{ "name": "Rain AC" },
-				{ "name": "Water T1" },
-				{ "name": "Water T2" }
-			],
-			"battery": true
-		},
-		"C7A867A4": {
-			"name": "Queens_Point",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "RH" },
-				{ "name": "Air Temp" },
-				{ "name": "Temp_1" },
-				{ "name": "Mean Wind Speed" },
-				{ "name": "Min Wind Speed" },
-				{ "name": "Max Wind Speed" },
-				{ "name": "5cm Soil Tg" },
-				{ "name": "15cm Soil Tg" },
-				{ "name": "Temp4(A)" },
-				{ "name": "Temp5(B)" },
-				{ "name": "Temp6(C)" },
-				{ "name": "Temp7" },
-				{ "name": "Solar Radiation" },
-				{ "name": "Total Precip Int" },
-				{ "name": "Total Precip" },
-				{ "name": "Mean Wind Direction" }
-			],
-			"battery": true
-		},
-		"C7A06302": {
-			"name": "Round_Lake",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "Temp" },
-				{ "name": "RH" },
-				{ "name": "Baro" },
-				{ "name": "WSpd" },
-				{ "name": "Gust" },
-				{ "name": "WDir" },
-				{ "name": "WTemp1" },
-				{ "name": "WTemp2" },
-				{ "name": "Rad" }
-			],
-			"battery": true
-		},
-		"C7A01592": {
-			"name": "Warner_Lake",
-			"numReadings": 4,
-			"sensors": [
-				{ "name": "W Dir" },
-				{ "name": "W Spd" },
-				{ "name": "Soil T1" },
-				{ "name": "Soil T2" },
-				{ "name": "Air Temp" },
-				{ "name": "R.H." },
-				{ "name": "Rain AC" },
-				{ "name": "Water T1" },
-				{ "name": "Water T2" }
-			],
-			"battery": true
-		}
-	}
+    "apiConnection": {
+        "url": "http://localhost:8000",
+        "username": "",
+        "password": ""
+    },
+    "lrgsConnection": {
+        "host": "cdadata.wcda.noaa.gov",
+        "port": 16003,
+        "username": "",
+        "password": ""
+    },
+    "goesConfiguration": {
+        "dataChannel": 19
+    },
+    "timeConfiguration": {
+        "centuryPrefix": "20"
+    },
+    "goesStations": {
+        "C7A0337E": {
+            "name": "Elbow_Lake",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "Temp" },
+                { "name": "RH" },
+                { "name": "Baro" },
+                { "name": "WSpd" },
+                { "name": "Gust" },
+                { "name": "WDir" },
+                { "name": "WTemp1" },
+                { "name": "WTemp2" },
+                { "name": "Rad" }
+            ],
+            "battery": true
+        },
+        "C7A02008": {
+            "name": "Hill_Island",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "W Dir" },
+                { "name": "W Spd" },
+                { "name": "Soil T1" },
+                { "name": "Soil T2" },
+                { "name": "Air Temp" },
+                { "name": "R.H." },
+                { "name": "Rain AC" },
+                { "name": "Water T1" },
+                { "name": "Water T2" }
+            ],
+            "battery": true
+        },
+        "C7A006E4": {
+            "name": "Leroi_Swamp",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "W Dir" },
+                { "name": "W Spd" },
+                { "name": "Soil T1" },
+                { "name": "Soil T2" },
+                { "name": "Air Temp" },
+                { "name": "R.H." },
+                { "name": "Rain AC" },
+                { "name": "Water T1" },
+                { "name": "Water T2" }
+            ],
+            "battery": true
+        },
+        "C7A867A4": {
+            "name": "Queens_Point",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "RH" },
+                { "name": "Air Temp" },
+                { "name": "Temp_1" },
+                { "name": "Mean Wind Speed" },
+                { "name": "Min Wind Speed" },
+                { "name": "Max Wind Speed" },
+                { "name": "5cm Soil Tg" },
+                { "name": "15cm Soil Tg" },
+                { "name": "Temp4(A)" },
+                { "name": "Temp5(B)" },
+                { "name": "Temp6(C)" },
+                { "name": "Temp7" },
+                { "name": "Solar Radiation" },
+                { "name": "Total Precip Int" },
+                { "name": "Total Precip" },
+                { "name": "Mean Wind Direction" }
+            ],
+            "battery": true
+        },
+        "C7A06302": {
+            "name": "Round_Lake",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "Temp" },
+                { "name": "RH" },
+                { "name": "Baro" },
+                { "name": "WSpd" },
+                { "name": "Gust" },
+                { "name": "WDir" },
+                { "name": "WTemp1" },
+                { "name": "WTemp2" },
+                { "name": "Rad" }
+            ],
+            "battery": true
+        },
+        "C7A01592": {
+            "name": "Warner_Lake",
+            "numReadings": 4,
+            "sensors": [
+                { "name": "W Dir" },
+                { "name": "W Spd" },
+                { "name": "Soil T1" },
+                { "name": "Soil T2" },
+                { "name": "Air Temp" },
+                { "name": "R.H." },
+                { "name": "Rain AC" },
+                { "name": "Water T1" },
+                { "name": "Water T2" }
+            ],
+            "battery": true
+        }
+    }
 }
