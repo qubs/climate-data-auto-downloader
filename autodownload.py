@@ -244,7 +244,7 @@ def main():
                                     # Add message to database.
                                     r = requests.post(
                                         "{}/messages/".format(config["apiConnection"]["url"]),
-                                        data=message,
+                                        json=message,
                                         auth=(config["apiConnection"]["username"], config["apiConnection"]["password"])
                                     )
 
