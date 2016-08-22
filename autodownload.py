@@ -74,7 +74,9 @@ def main():
 
                     # Format: (YY)YYDDDHHMMSS. Convert it to ISO 8601 for the API.
                     arrival_time = CENTURY_PREFIX + message_headers[8:19]
-                    arrival_time_object = datetime.datetime.strptime(arrival_time, "%Y%j%H%M%S").replace(tzinfo=pytz.UTC)
+                    arrival_time_object = datetime.datetime.strptime(arrival_time, "%Y%j%H%M%S").replace(
+                        tzinfo = pytz.UTC
+                    )
                     print(arrival_time_object.isoformat())
 
                     # We only want to process data from the data channel (GOES 19).
@@ -114,8 +116,8 @@ def main():
                         metadata_fetch_failure = False
 
                         try:
-                            # Request for messages from the same GOES ID with an arrival time plus or minus one second from
-                            # the current message's arrival time...
+                            # Request for messages from the same GOES ID with an arrival time plus or minus one second
+                            # from the current message's arrival time...
 
                             r = requests.get(
                                 "{}/messages/".format(config["apiConnection"]["url"]),
@@ -128,8 +130,8 @@ def main():
 
                             result = r.json()
 
-                            # ... if one appears, it should be the same and thus the message should not be inserted again.
-                            # A flag is set to prevent insertion.
+                            # ... if one appears, it should be the same and thus the message should not be inserted
+                            # again. A flag is set to prevent insertion.
 
                             if len(result) > 0:
                                 print("{}: The following message already has been saved: {}.".format(
@@ -147,7 +149,9 @@ def main():
 
                         except ValueError:
                             # Decoding the JSON response failed; this should be logged.
-                            print("{}: An invalid JSON response was recieved.".format(datetime.datetime.now().isoformat()))
+                            print("{}: An invalid JSON response was recieved.".format(
+                                datetime.datetime.now().isoformat())
+                            )
 
                         except requests.exceptions.RequestException as e:
                             # Catch any generic request errors.
