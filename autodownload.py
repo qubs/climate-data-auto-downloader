@@ -55,11 +55,11 @@ def main():
 
         with open(MESSAGE_FILE_PATH, "rU") as message_file:
             # Remove any messages that are just spaces or blank lines.
-            messages_iterable = filter(None, map(str.strip, message_file.read().strip().split("---END---")))
+            messages_list = list(filter(None, map(str.strip, message_file.read().strip().split("---END---"))))
 
-            # Loop through remaining messages and process each one.
+            # Loop through remaining messages and process each one. Reverse to go from earliest to latest.
 
-            for cleaned_message in messages_iterable:
+            for cleaned_message in reversed(messages_list):
                 # Split message into the headers and the actual data.
 
                 try:
