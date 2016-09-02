@@ -15,7 +15,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-import os, sys, json, requests, datetime, time, pytz, pprint, math
+import os, sys, json, requests, datetime, time, pytz, pprint, math, argparse
 from sudecode.sudecode import decode
 
 CONFIG_FILE_PATH = "./config.json"
@@ -28,6 +28,10 @@ CENTURY_PREFIX = "20"  # Default, hopefully this script won't be used in the 22n
 pp = pprint.PrettyPrinter(indent=2, compact=True) # For nice log file output and debugging.
 
 def main():
+    parser = argparse.ArgumentParser(description="Downloads climate data from QUBS satellite-linked climate stations.")
+    parser.add_argument("--existing", action="store_true", help="Do not download new data and parse existing data.")
+    args = parser.parse_args()
+
     with open(CONFIG_FILE_PATH, "rU") as configFile:
         config = json.loads(configFile.read())
 
@@ -43,15 +47,16 @@ def main():
 
         # Run the LRGS command-line client software to fetch messages using search terms outlined in the .sc file.
 
-        os.system("getDcpMessages -a '---END---' -u {} -P {} -h {} -p {} -f {} -x > {}".format(
-            config["lrgsConnection"]["username"],
-            config["lrgsConnection"]["password"],
-            config["lrgsConnection"]["host"],
-            config["lrgsConnection"]["port"],
+        if not args.existing:
+            os.system("getDcpMessages -a '---END---' -u {} -P {} -h {} -p {} -f {} -x > {}".format(
+                config["lrgsConnection"]["username"],
+                config["lrgsConnection"]["password"],
+                config["lrgsConnection"]["host"],
+                config["lrgsConnection"]["port"],
 
-            SEARCH_FILE_PATH,
-            MESSAGE_FILE_PATH
-        ))
+                SEARCH_FILE_PATH,
+                MESSAGE_FILE_PATH
+            ))
 
         with open(MESSAGE_FILE_PATH, "rU") as message_file:
             # Remove any messages that are just spaces or blank lines.
