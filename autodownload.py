@@ -62,6 +62,17 @@ def main():
             # Remove any messages that are just spaces or blank lines.
             messages_list = list(filter(None, map(str.strip, message_file.read().strip().split("---END---"))))
 
+            # Set a lock to inform clients that the server is currently receiving data (and they may want to hold off
+            # refreshing).
+            requests.patch(
+                "{}/settings/receiving_data/".format(config["apiConnection"]["url"]),
+                data={"value": "1"},
+                auth=(
+                    config["apiConnection"]["username"],
+                    config["apiConnection"]["password"]
+                )
+            )
+
             # Loop through remaining messages and process each one. Reverse to go from earliest to latest.
 
             for cleaned_message in reversed(messages_list):
@@ -288,6 +299,16 @@ def main():
                         datetime.datetime.now().isoformat(),
                         cleaned_message
                     ))
+
+            # Reset the lock to indicate that all data has been received from a batch.
+            requests.patch(
+                "{}/settings/receiving_data/".format(config["apiConnection"]["url"]),
+                data={"value": "0"},
+                auth=(
+                    config["apiConnection"]["username"],
+                    config["apiConnection"]["password"]
+                )
+            )
 
 if __name__ == "__main__":
     main()
