@@ -117,7 +117,7 @@ def main():
                             ),
 
                             "message_text": cleaned_message,
-                            "station_id": None
+                            "station": None
                         }
 
                         pp.pprint(message)
