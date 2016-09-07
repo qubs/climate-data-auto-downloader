@@ -91,7 +91,7 @@ def main():
                     # Format: (YY)YYDDDHHMMSS. Convert it to ISO 8601 for the API.
                     arrival_time = CENTURY_PREFIX + message_headers[8:19]
                     arrival_time_object = datetime.datetime.strptime(arrival_time, "%Y%j%H%M%S").replace(
-                        tzinfo = pytz.UTC
+                        tzinfo=pytz.UTC
                     )
                     print(arrival_time_object.isoformat())
 
@@ -237,16 +237,18 @@ def main():
                                             nearest_quarter = arrival_time_object - datetime.timedelta(seconds=delta)
 
                                             # Then, calculate the offset time from the reading index by multiplying the
-                                            # time between readings by the index (since the order of values is most recent
-                                            # to past).
-                                            # TODO: The 15 shouldn't be hardcoded either, should be calculated from config.
-                                            reading_time = nearest_quarter - datetime.timedelta(minutes=15*v)
+                                            # time between readings by the index (since the order of values is most
+                                            # recent to past).
+                                            # TODO: The 15 shouldn't be hardcoded either, should be calculated from
+                                            # config.
+                                            reading_time = nearest_quarter - datetime.timedelta(minutes=15 * v)
 
                                             reading = {
                                                 "read_time": reading_time.isoformat(),
                                                 "value": sensor_values[v],
                                                 "sensor": sensor_id,
-                                                "station": station_id
+                                                "station": station_id,
+                                                "message": created_message["id"]
                                             }
 
                                             # pp.pprint(reading)
