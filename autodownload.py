@@ -221,6 +221,18 @@ def main():
                                 times_to_repeat -= 1
 
                                 try:
+                                    # Add message to database.
+
+                                    r = requests.post(
+                                        "{}/messages/".format(config["apiConnection"]["url"]),
+                                        json=message,
+                                        auth=(
+                                            config["apiConnection"]["username"],
+                                            config["apiConnection"]["password"]
+                                        )
+                                    )
+                                    created_message = r.json()
+
                                     # Add readings to database.
 
                                     for sensor_id, sensor_values in station_sensor_data.items():
@@ -256,19 +268,12 @@ def main():
                                             # Add reading to database.
                                             r = requests.post(
                                                 "{}/readings/".format(config["apiConnection"]["url"]),
-                                                data=reading,
+                                                json=reading,
                                                 auth=(
                                                     config["apiConnection"]["username"],
                                                     config["apiConnection"]["password"]
                                                 )
                                             )
-
-                                    # Add message to database.
-                                    r = requests.post(
-                                        "{}/messages/".format(config["apiConnection"]["url"]),
-                                        json=message,
-                                        auth=(config["apiConnection"]["username"], config["apiConnection"]["password"])
-                                    )
 
                                 except requests.exceptions.Timeout:
                                     # Try a single retry.
