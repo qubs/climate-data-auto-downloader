@@ -28,8 +28,11 @@ This object contains information on connecting to the API server.
 This object contains information on connecting to the LRGS server.
 
 `host`: The host of the LRGS server. Defaults to `"cdadata.wcda.noaa.gov"`.
+
 `port`: The port of the LRGS server. Defaults to `16003`.
+
 `username`: The username to connect to the LRGS server with.
+
 `password`: The password to connect to the LRGS server with.
 
 ### `goesConfiguration`
