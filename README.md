@@ -15,15 +15,28 @@ The configuration file, `config.json`, stores a JSON object with the following c
 
 ### `apiConnection`
 
-TODO
+This object contains information on connecting to the API server.
+
+`url`: The URL of the API server.
+
+`username`: The username to connect to the API server with.
+
+`password`: The password to connect to the API server with.
 
 ### `lrgsConnection`
 
-TODO
+This object contains information on connecting to the LRGS server.
+
+`host`: The host of the LRGS server. Defaults to `"cdadata.wcda.noaa.gov"`.
+`port`: The port of the LRGS server. Defaults to `16003`.
+`username`: The username to connect to the LRGS server with.
+`password`: The password to connect to the LRGS server with.
 
 ### `goesConfiguration`
 
-TODO
+This object contains information about the GOES data satellite used.
+
+`dataChannel`: The data channel on which data messages are recieved.
 
 ### `timeConfiguration`
 
