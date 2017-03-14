@@ -47,7 +47,18 @@ TODO
 
 ### `goesStations`
 
-TODO
+This object contains information on GOES climate stations. The key of the object
+is the GOES ID of the station.
+
+Within a station object:
+
+`name`: The station name.
+
+`numReadings`: The number of readings the station takes per hour.
+
+`numSensors`: The number of sensors (not including battery information).
+
+`battery`: Whether or not battery information is appended onto the message.
 
 ## Usage
 

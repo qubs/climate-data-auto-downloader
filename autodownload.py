@@ -112,7 +112,7 @@ def main():
                             "recorded_message_length": int(message_headers[32:37]),
 
                             "values": decode(message_data, 3,
-                                len(config["goesStations"][goes_id]["sensors"]),
+                                config["goesStations"][goes_id]["numSensors"],
                                 config["goesStations"][goes_id]["numReadings"]
                             ),
 
