@@ -50,16 +50,7 @@
         "C7A01592": {
             "name": "Warner_Lake",
             "numReadings": 4,
-                { "name": "W Dir" },
-                { "name": "W Spd" },
-                { "name": "Soil T1" },
-                { "name": "Soil T2" },
-                { "name": "Air Temp" },
-                { "name": "R.H." },
-                { "name": "Rain AC" },
-                { "name": "Water T1" },
-                { "name": "Water T2" }
-            ],
+            "numSensors": 9,
             "battery": true
         }
     }
