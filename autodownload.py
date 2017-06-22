@@ -22,10 +22,11 @@ CONFIG_FILE_PATH = "./config.json"
 SEARCH_FILE_PATH = "./st.sc"
 MESSAGE_FILE_PATH = "./latest-messages.txt"
 
-GOES_DATA_CHANNEL = 19 # Default
-CENTURY_PREFIX = "20"  # Default, hopefully this script won't be used in the 22nd century but just in case...
+GOES_DATA_CHANNEL = 19  # Default
+CENTURY_PREFIX = "20"   # Default, hopefully this script won't be used in the 22nd century but just in case...
 
-pp = pprint.PrettyPrinter(indent=2, compact=True) # For nice log file output and debugging.
+pp = pprint.PrettyPrinter(indent=2, compact=True)  # For nice log file output and debugging.
+
 
 def main():
     global GOES_DATA_CHANNEL
