@@ -278,7 +278,7 @@ def main():
                                 except requests.exceptions.Timeout:
                                     # Try a single retry.
 
-                                    if cancelNextRepeat:
+                                    if cancel_next_repeat:
                                         times_to_repeat = 1
                                         cancel_next_repeat = True
 
