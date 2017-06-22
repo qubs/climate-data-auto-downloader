@@ -28,6 +28,9 @@ CENTURY_PREFIX = "20"  # Default, hopefully this script won't be used in the 22n
 pp = pprint.PrettyPrinter(indent=2, compact=True) # For nice log file output and debugging.
 
 def main():
+    global GOES_DATA_CHANNEL
+    global CENTURY_PREFIX
+
     parser = argparse.ArgumentParser(description="Downloads climate data from QUBS satellite-linked climate stations.")
     parser.add_argument("--existing", action="store_true", help="Do not download new data and parse existing data.")
     args = parser.parse_args()
