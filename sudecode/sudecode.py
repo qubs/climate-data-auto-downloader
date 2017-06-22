@@ -1,77 +1,72 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys, json, math
 
-configPath = "../config.json"
-
-def decode(encodedMessage, bytesPerValue, numSensors, numReadings):
-    messageStart = 0
+def decode(encoded_message, bytes_per_value, num_sensors, num_readings):
+    message_start = 0
 
     # Get to the beginning of the message proper.
-    while encodedMessage[messageStart] != "B":
-        messageStart += 1
+    while encoded_message[message_start] != "B":
+        message_start += 1
 
-    groupId = encodedMessage[messageStart + 1]
-    timeOffset = ord(encodedMessage[messageStart + 2]) - 64
+    # group_id = encoded_message[message_start + 1]
+    # time_offset = ord(encoded_message[message_start + 2]) - 64
 
-    dataOffset = messageStart + 3
-    initialDataOffset = dataOffset
-    decodedData = []
+    data_offset = message_start + 3
+    initial_data_offset = data_offset
+    decoded_data = []
 
     # TODO: Handle negative numbers.
 
-    while dataOffset < initialDataOffset + numSensors * bytesPerValue * numReadings:
-        if dataOffset > len(encodedMessage) - 1: # Extra data on end, TODO: Extra data variable
+    while data_offset < initial_data_offset + num_sensors * bytes_per_value * num_readings:
+        if data_offset > len(encoded_message) - 1:  # Extra data on end, TODO: Extra data variable
             # Terminate early, this is an incomplete transmission.
             break
 
-        bytes = encodedMessage[dataOffset:dataOffset + bytesPerValue]
+        data_bytes = encoded_message[data_offset:data_offset + bytes_per_value]
 
         # TODO: Allow for variable bytes per value
 
-        noValue = False
-        byteOffsets = [ord(x) - 64 for x in bytes]
+        no_value = False
+        byte_offsets = [ord(x) - 64 for x in data_bytes]
 
-        for i in range(len(bytes) - 1, -1, -1):
-            if bytes[i] != "/":
+        for i in range(len(data_bytes) - 1, -1, -1):
+            if data_bytes[i] != "/":
                 break
-            elif bytes[i] == "/" and i == 0:
-                noValue = True
+            elif data_bytes[i] == "/" and i == 0:
+                no_value = True
 
-        for i, byte in enumerate(byteOffsets):
+        for i, byte in enumerate(byte_offsets):
             if byte < -1 or byte > 63:
-                noValue = True
+                no_value = True
 
-        if not noValue:
+        if not no_value:
             # The pseudobinary format sends the value 127 (ASCII delete) as a question mark (63) instead.
             # We move them back up to their correct numerical value.
-            for i, byte in enumerate(byteOffsets):
+            for i, byte in enumerate(byte_offsets):
                 if byte == -1:
-                    byteOffsets[i] = 63
+                    byte_offsets[i] = 63
 
-            numericalValue = 0
-            for i in range(len(bytes) - 1, -1, -1):
-                numericalValue += byteOffsets[i] * 2 ** ((len(bytes) - i - 1) * 6)
+            numerical_value = 0
+            for i in range(len(data_bytes) - 1, -1, -1):
+                numerical_value += byte_offsets[i] * 2 ** ((len(data_bytes) - i - 1) * 6)
 
-            if numericalValue > (2 ** (bytesPerValue * 6) / 2) - 1: # i.e. is a negative number in two's complement
-                numericalValue = -1 * (2 ** (bytesPerValue * 6) - numericalValue)
+            if numerical_value > (2 ** (bytes_per_value * 6) // 2) - 1:  # i.e. is a negative number in two's complement
+                numerical_value = -1 * (2 ** (bytes_per_value * 6) - numerical_value)
 
-            decodedData.append(numericalValue)
+            decoded_data.append(numerical_value)
         else:
-            decodedData.append(None) # None represents a blank field here
+            decoded_data.append(None)  # None represents a blank field here
 
-        dataOffset += bytesPerValue
+        data_offset += bytes_per_value
 
-    return decodedData
+    return decoded_data
+
 
 def main():
-    with open(configPath, "rU") as configFile:
-        configData = json.load(configFile)
-
-        while True:
-            message = input()
-            print(decode(message, 3, 9, 4))
+    while True:
+        message = input()
+        print(decode(message, 3, 9, 4))
 
 if __name__ == "__main__":
     main()
