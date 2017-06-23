@@ -22,12 +22,16 @@ CONFIG_FILE_PATH = "./config.json"
 SEARCH_FILE_PATH = "./st.sc"
 MESSAGE_FILE_PATH = "./latest-messages.txt"
 
-GOES_DATA_CHANNEL = 19 # Default
-CENTURY_PREFIX = "20"  # Default, hopefully this script won't be used in the 22nd century but just in case...
+GOES_DATA_CHANNEL = 19  # Default
+CENTURY_PREFIX = "20"   # Default, hopefully this script won't be used in the 22nd century but just in case...
 
-pp = pprint.PrettyPrinter(indent=2, compact=True) # For nice log file output and debugging.
+pp = pprint.PrettyPrinter(indent=2, compact=True)  # For nice log file output and debugging.
+
 
 def main():
+    global GOES_DATA_CHANNEL
+    global CENTURY_PREFIX
+
     parser = argparse.ArgumentParser(description="Downloads climate data from QUBS satellite-linked climate stations.")
     parser.add_argument("--existing", action="store_true", help="Do not download new data and parse existing data.")
     args = parser.parse_args()
@@ -112,7 +116,7 @@ def main():
                             "recorded_message_length": int(message_headers[32:37]),
 
                             "values": decode(message_data, 3,
-                                len(config["goesStations"][goes_id]["sensors"]),
+                                config["goesStations"][goes_id]["numSensors"],
                                 config["goesStations"][goes_id]["numReadings"]
                             ),
 
@@ -278,7 +282,7 @@ def main():
                                 except requests.exceptions.Timeout:
                                     # Try a single retry.
 
-                                    if cancelNextRepeat:
+                                    if cancel_next_repeat:
                                         times_to_repeat = 1
                                         cancel_next_repeat = True
 
