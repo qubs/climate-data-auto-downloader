@@ -43,7 +43,9 @@ This object contains information about the GOES data satellite used.
 
 ### `timeConfiguration`
 
-TODO
+This object contains information about handling times.
+
+`centuryPrefix`: The first two digits of the current year.
 
 ### `goesStations`
 
