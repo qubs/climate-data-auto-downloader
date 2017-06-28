@@ -135,6 +135,7 @@ def main():
 
                         # Initialize an empty dictionary to hold station data sorted into sensor type.
                         station_sensor_data = {}
+                        station_links_by_sensor_id = {}
                         station_id = -1
 
                         # Check for repeat messages.
@@ -217,6 +218,19 @@ def main():
                                 o = s * 4
                                 station_sensor_data[station_sensors[s]["id"]] = message["values"][o:o+4]
 
+                            r = requests.get(
+                                "{}/stations/{}/sensor-links/".format(
+                                    config["apiConnection"]["url"],
+                                    station_id
+                                ),
+                                params={"deep": True}
+                            )
+
+                            station_links = r.json()
+
+                            for l in range(0, len(station_links)):
+                                station_links_by_sensor_id[station_links[l]["sensor"]["id"]] = station_links[l]
+
                         except ValueError:
                             metadata_fetch_failure = True
 
@@ -271,6 +285,7 @@ def main():
                                                 "value": sensor_values[v],
                                                 "sensor": sensor_id,
                                                 "station": station_id,
+                                                "station_sensor_link": station_links_by_sensor_id[sensor_id]["id"],
                                                 "message": created_message["id"]
                                             }
 
