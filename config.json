@@ -1,8 +1,8 @@
 {
     "apiConnection": {
-        "url": "http://localhost:8000",
         "username": "",
         "password": ""
+        "url": "http://localhost:8000/api/climate",
     },
     "lrgsConnection": {
         "host": "cdadata.wcda.noaa.gov",
