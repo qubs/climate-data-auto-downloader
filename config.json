@@ -1,14 +1,14 @@
 {
     "apiConnection": {
+        "url": "http://localhost:8000/api/climate",
         "username": "",
         "password": ""
-        "url": "http://localhost:8000/api/climate",
     },
     "lrgsConnection": {
         "host": "cdadata.wcda.noaa.gov",
         "port": 16003,
-        "username": "",
-        "password": ""
+        "username": "qubios",
+        "password": "dqcj-JXWR-66"
     },
     "goesConfiguration": {
         "dataChannel": 19
