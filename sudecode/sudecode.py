@@ -2,12 +2,21 @@
 # -*- coding: utf-8 -*-
 
 
+SATLINK_DATA_BUFFER_EMPTY = "SATLINK DATA BUFFER EMPTY"
+
+
 def decode(encoded_message, bytes_per_value, num_sensors, num_readings):
     message_start = 0
 
     # Get to the beginning of the message proper.
     while encoded_message[message_start] != "B":
         message_start += 1
+
+    invalidate_everything = False
+
+    # Check for an empty data buffer, which may get converted into "made-up" values.
+    if SATLINK_DATA_BUFFER_EMPTY in encoded_message:
+        invalidate_everything = True
 
     # group_id = encoded_message[message_start + 1]
     # time_offset = ord(encoded_message[message_start + 2]) - 64
@@ -40,7 +49,9 @@ def decode(encoded_message, bytes_per_value, num_sensors, num_readings):
             if byte < -1 or byte > 63:
                 no_value = True
 
-        if not no_value:
+        if not (no_value or invalidate_everything):
+            # The value can be considered 'valid' for the purposes of the decoder.
+
             # The pseudobinary format sends the value 127 (ASCII delete) as a question mark (63) instead.
             # We move them back up to their correct numerical value.
             for i, byte in enumerate(byte_offsets):
