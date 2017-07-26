@@ -7,8 +7,8 @@
     "lrgsConnection": {
         "host": "cdadata.wcda.noaa.gov",
         "port": 16003,
-        "username": "qubios",
-        "password": "dqcj-JXWR-66"
+        "username": "",
+        "password": ""
     },
     "goesConfiguration": {
         "dataChannel": 19
