@@ -25,8 +25,6 @@ def decode(encoded_message, bytes_per_value, num_sensors, num_readings):
     initial_data_offset = data_offset
     decoded_data = []
 
-    # TODO: Handle negative numbers.
-
     if not no_content:
         while data_offset < initial_data_offset + num_sensors * bytes_per_value * num_readings:
             if data_offset > len(encoded_message) - 1:  # Extra data on end, TODO: Extra data variable
@@ -63,7 +61,8 @@ def decode(encoded_message, bytes_per_value, num_sensors, num_readings):
                 for i in range(len(data_bytes) - 1, -1, -1):
                     numerical_value += byte_offsets[i] * 2 ** ((len(data_bytes) - i - 1) * 6)
 
-                if numerical_value > (2 ** (bytes_per_value * 6) // 2) - 1:  # i.e. is a negative number in two's complement
+                if numerical_value > (2 ** (bytes_per_value * 6) // 2) - 1:
+                    # i.e. is a negative number in two's complement
                     numerical_value = -1 * (2 ** (bytes_per_value * 6) - numerical_value)
 
                 decoded_data.append(numerical_value)
