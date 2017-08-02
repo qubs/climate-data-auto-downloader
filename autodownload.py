@@ -79,7 +79,7 @@ def main():
             # Set a lock to inform clients that the server is currently receiving data (and they may want to hold off
             # refreshing).
             requests.patch(
-                "{}/settings/receiving_data/".format(config["apiConnection"]["url"]),
+                "{api_url}/settings/receiving_data/".format(api_url=config["apiConnection"]["url"]),
                 data={"value": "1"},
                 auth=(
                     config["apiConnection"]["username"],
@@ -148,7 +148,7 @@ def main():
                             # from the current message's arrival time...
 
                             r = requests.get(
-                                "{}/messages/".format(config["apiConnection"]["url"]),
+                                "{api_url}/messages/".format(api_url=config["apiConnection"]["url"]),
                                 params={
                                     "goes_id": message["goes_id"],
                                     "start": arrival_time_object - datetime.timedelta(seconds=1),
@@ -192,7 +192,7 @@ def main():
 
                         try:
                             r = requests.get(
-                                "{}/stations/".format(config["apiConnection"]["url"]),
+                                "{api_url}/stations/".format(api_url=config["apiConnection"]["url"]),
                                 params={
                                     "goes_id": message["goes_id"]
                                 }
@@ -205,9 +205,9 @@ def main():
                             message["station"] = station_id
 
                             r = requests.get(
-                                "{}/stations/{}/sensors/".format(
-                                    config["apiConnection"]["url"],
-                                    station_id
+                                "{api_url}/stations/{station_id}/sensors/".format(
+                                    api_url=config["apiConnection"]["url"],
+                                    station_id=station_id
                                 )
                             )
 
@@ -219,9 +219,9 @@ def main():
                                 station_sensor_data[station_sensors[s]["id"]] = message["values"][o:o+4]
 
                             r = requests.get(
-                                "{}/stations/{}/sensor-links/".format(
-                                    config["apiConnection"]["url"],
-                                    station_id
+                                "{api_url}/stations/{station_id}/sensor-links/".format(
+                                    api_url=config["apiConnection"]["url"],
+                                    station_id=station_id
                                 ),
                                 params={"deep": True}
                             )
