@@ -1,6 +1,6 @@
-certifi==2017.7.27.1
+certifi==2019.3.9
 chardet==3.0.4
-idna==2.5
-pytz==2017.2
-requests==2.18.3
-urllib3==1.22
+idna==2.8
+pytz==2019.1
+requests==2.22.0
+urllib3==1.25.3
